@@ -14,3 +14,11 @@
 Linting - the automated checking of your source code for programmatic, syntactic, or stylistic errors.
 
 - PEP8 : a document providing guidelines and best practices for writing Python code.
+
+# Production Ready Code
+
+**Key Concept**
+- Catching Errors :
+- Testing :
+- Logging :
+- Drift :
