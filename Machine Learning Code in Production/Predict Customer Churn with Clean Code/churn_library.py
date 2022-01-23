@@ -1,33 +1,87 @@
-# library doc string
+'''
+Use to predict churn of bank customer with binary classification problem by
+using selected machine learning model from Sklearn.
+
+Exploratory data analysis and model tuning with gridsearch method also are included.
+
+Usage : ./churn_library.py
+Authors : Wasurat Soontronchai <wasurat_me96@outlook.com>
+'''
 
 
-# import libraries
+# Standard Libary
+import joblib
+import logging
 
+# Data Manipulations Library
+import pandas as pd
+import numpy as np
 
+# Visualization Library
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
 
+# Machine Learning Related Libary
+import shap
+from sklearn.preprocessing import normalize
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import plot_roc_curve, classification_report
 
-def import_data(pth):
+# Settings and Constant
+import settings
+
+logging.basicConfig(
+        filename = './logs/results.log',
+        level = logging.INFO,
+        filemode = 'w',
+        format = '%(name)s - %(levelname)s - %(message)s'
+)
+
+def import_data(file_path: str,
+                target_column: str) -> pd.DataFrame:
     '''
-    returns dataframe for the csv found at pth
-
-    input:
-            pth: a path to the csv
-    output:
-            df: pandas dataframe
-    '''	
-	pass
-
-
-def perform_eda(df):
+    Returns dataframe for the csv given from file path.
+    And remove unrelated columns due to sd
+    Args:
+            file_path (str): A path to the csv file
+            target_column (str) : Columns name of target prediction
+    Outsputs:
+            dataframe (pd.DataFrame): pandas dataframe
     '''
-    perform eda on df and save figures to images folder
-    input:
-            df: pandas dataframe
+    try:
+            assert isinstance(file_path, str)
 
-    output:
+            dataframe = pd.read_csv(file_path, index_col = 0)
+            logging.info("Read file success")
+            return dataframe
+
+    except FileNotFoundError:
+            print("No such file or directory")
+            logging.error()
+    except AssertionError:
+            print("Input path is not string format")
+            logging.error()
+
+def perform_eda(dataframe: pd.DataFrame) -> None:
+    '''
+    Perform EDA on raw dataframe.
+    List of analysis are 
+        1.) Number of missing value in each columns
+        2.) 
+    Then save results and figures to images folder.
+    Args:
+            dataframe (pd.DataFrame): Pandas DataFrame with raw data
+            target_col (str) : Column name of target prediction
+
+    Outputs:
             None
     '''
-	pass
+
+
+    pass
 
 
 def encoder_helper(df, category_lst, response):
@@ -107,3 +161,8 @@ def train_models(X_train, X_test, y_train, y_test):
               None
     '''
     pass
+
+if __name__ == '__main__':
+        raw_data = import_data("./data/bank_data.csv")
+        print(settings.features_select['numerical'])
+        

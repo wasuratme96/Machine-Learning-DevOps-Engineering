@@ -20,7 +20,7 @@ Demographic Data:
         ├── data             # Folder to store data
         ├── images           # Collect all images results
         |   ├── eda            
-        |   ├── results       
+        |   └── results       
         ├── logs                   # Collect all logs from running
         ├── models                 # Path to store trained ml models
         ├── churn_notebook.ipynb   # Notebook for experiment
@@ -29,12 +29,17 @@ Demographic Data:
         └── README.md                          # This file
 
 ## Running Files
-2 Main file to use and test script are ```churn_library.py``` and ```churn_script_logging_and_tests.py```. <br/>
+Main file to run is ```churn_library.py```. This will contains all functions for EDA, model training and save all results from EDA and trained model into target directory.<br/>
+
 Thse package can interactively run from common-line interface (CLI) by follow script
 
 ``` CLI
 python churn_library.py
+```
+For unit testing all functions, you can use ```churn_script_logging_and_tests.py```
+``` CLI
 python churn_script_logging_and_tests.py
 ```
 
+## Process In 
 
