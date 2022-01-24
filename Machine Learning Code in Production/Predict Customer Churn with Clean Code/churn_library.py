@@ -1,13 +1,11 @@
 '''
-Use to predict churn of bank customer with binary classification problem by
-using selected machine learning model from Sklearn.
-
-Exploratory data analysis and model tuning with gridsearch method also are included.
+Use to predict churn of bank customer with binary classification problem.
+Selected model from Sklearn are LogisticRegression and RandomForestClassifier.
+Exploratory data analysis and model tuning with Gridsearch method is included.
 
 Usage : ./churn_library.py
 Authors : Wasurat Soontronchai <wasurat_me96@outlook.com>
 '''
-
 
 # Standard Libary
 import joblib
@@ -40,15 +38,17 @@ logging.basicConfig(
         format = '%(name)s - %(levelname)s - %(message)s'
 )
 
-def import_data(file_path: str,
-                target_column: str) -> pd.DataFrame:
+def import_data(file_path: str) -> pd.DataFrame:
     '''
     Returns dataframe for the csv given from file path.
-    And remove unrelated columns due to sd
+    And specific index_col = 0 to remove unwanted column.
+
     Args:
+    ----------
             file_path (str): A path to the csv file
-            target_column (str) : Columns name of target prediction
+
     Outsputs:
+    ----------
             dataframe (pd.DataFrame): pandas dataframe
     '''
     try:
@@ -59,30 +59,88 @@ def import_data(file_path: str,
             return dataframe
 
     except FileNotFoundError:
-            print("No such file or directory")
-            logging.error()
+            print("No such file or directory from given path")
+            logging.error("ERROR : No such file or directory from given path")
     except AssertionError:
-            print("Input path is not string format")
-            logging.error()
+            print("Input path is inccorrect format")
+            logging.error("ERROR : Input path is inccorrect format")
 
-def perform_eda(dataframe: pd.DataFrame) -> None:
+def perform_eda(dataframe: pd.DataFrame,
+                target_col: str,
+                countplot_list: list,
+                distplot_list: list,
+                normcountplot_list: list) -> None:
     '''
-    Perform EDA on raw dataframe.
-    List of analysis are 
-        1.) Number of missing value in each columns
-        2.) 
-    Then save results and figures to images folder.
+    Perform EDA on raw dataframe with list list of items
+
+    1.) Number of missing value in each columns :
+
+    2.) Basic Descriptive Statistic :
+
+    3.) Histogram of amount in each predict class :
+
+    4.) Histogram of selected columns : 
+
+    5.) Normalized Barplot of selected columns :
+
+    6.) Heatmap of all columns in dataset :
+
+    Then save results and figures to .images/eda folder.
+
     Args:
+    ----------
             dataframe (pd.DataFrame): Pandas DataFrame with raw data
             target_col (str) : Column name of target prediction
 
     Outputs:
+    ----------
             None
     '''
+    try:
+            # Ensure the binary classification problem
+            assert len(dataframe[target_col].unique()) == 2 
 
+            # Change target column to numerical value 
+            dataframe['Churn'] = np.where(dataframe[target_col] == settings.label['class_0'], 0, 1)
 
-    pass
+    except AssertionError:
+            print("Target prediction is not binary problem")
+            logging.error("ERROR : Target prediction is not binary problem")
+    
+    data_profile_path = './data/data profile'
+    img_path = './images/eda'
 
+    # Missing Value Check
+    pd.DataFrame(dataframe.isnull().sum(), columns = ['Null Value']).to_csv(f'{data_profile_path}/missing_value.csv')
+    # Basic Descriptive Statistics
+    dataframe.describe().to_csv(f'{data_profile_path}/basic_stat.csv')
+    
+    # Count Plot
+    countplot_list.append(target_col)
+    for col_name in countplot_list:
+            plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
+            sns.countplot(x = dataframe[col_name])
+            plt.savefig(f'{img_path}/{col_name}_countplot')
+
+    # Normalized Count Plot
+    for col_name in normcountplot_list:
+            plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
+            dataframe['Marital_Status'].value_counts('normalize').plot.bar()
+            plt.savefig(f'{img_path}/{col_name}_normcountplot')
+
+    # Distribution Plot
+    for col_name in distplot_list:
+            plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
+            sns.displot(x = dataframe[col_name])
+            plt.savefig(f'{img_path}/{col_name}_distplot')
+
+    # Heat Map
+    plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
+    sns.heatmap(dataframe.corr(), 
+                annot= settings.eda_plot['annot'], 
+                cmap= settings.eda_plot['cmap'], 
+                linewidths = settings.eda_plot['linewidths'])
+    plt.savefig(f'{img_path}/Correlation_heatmap')
 
 def encoder_helper(df, category_lst, response):
     '''
@@ -163,6 +221,17 @@ def train_models(X_train, X_test, y_train, y_test):
     pass
 
 if __name__ == '__main__':
+        # Read in data
         raw_data = import_data("./data/bank_data.csv")
-        print(settings.features_select['numerical'])
+        
+        # Perform exploratory dat analysis 
+        countplot_list = ['Education_Level', 'Income_Category']
+        distplot_list = ['Total_Trans_Ct', 'Total_Trans_Amt']
+        normcountplot_list = ['Marital_Status']
+        perform_eda(raw_data, 
+                    'Attrition_Flag', 
+                    countplot_list, 
+                    distplot_list,
+                    normcountplot_list)
+        
         

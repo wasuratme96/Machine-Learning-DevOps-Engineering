@@ -37,3 +37,8 @@ features_select = dict(
             'Avg_Utilization_Ratio'
             ]
 )
+
+label = dict(
+    class_0 = 'Existing Customer',
+    class_1 = 'Attrited Customer'
+)
