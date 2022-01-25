@@ -12,33 +12,11 @@ result_plot = dict(
 
 )
 
-features_select = dict(
-    categorical = [
-                    'Gender',
-                    'Education_Level',
-                    'Marital_Status',
-                    'Income_Category',
-                    'Card_Category'
-                    ],
-    numerical = [
-            'Customer_Age',
-            'Dependent_count', 
-            'Months_on_book',
-            'Total_Relationship_Count', 
-            'Months_Inactive_12_mon',
-            'Contacts_Count_12_mon', 
-            'Credit_Limit', 
-            'Total_Revolving_Bal',
-            'Avg_Open_To_Buy', 
-            'Total_Amt_Chng_Q4_Q1', 
-            'Total_Trans_Amt',
-            'Total_Trans_Ct', 
-            'Total_Ct_Chng_Q4_Q1', 
-            'Avg_Utilization_Ratio'
-            ]
-)
-
 label = dict(
     class_0 = 'Existing Customer',
     class_1 = 'Attrited Customer'
+)
+
+seed = dict(
+    seed_number  = 112233
 )
