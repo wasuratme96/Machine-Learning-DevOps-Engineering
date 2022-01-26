@@ -18,6 +18,7 @@ Demographic Data:
     
     └── Predict Customer Churn with Clean Code 
         ├── data             # Folder to store data
+        |   └── data profile # Folder to store profile of data
         ├── images           # Collect all images results
         |   ├── eda            
         |   └── results       

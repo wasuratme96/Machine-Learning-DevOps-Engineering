@@ -10,6 +10,7 @@ Authors : Wasurat Soontronchai <wasurat_me96@outlook.com>
 # Standard Libary
 import joblib
 import logging
+from typing import TypeVar
 from numbers import Number
 
 # Data Manipulations Library
@@ -33,8 +34,10 @@ from sklearn.metrics import plot_roc_curve, classification_report
 # Settings and Constant
 import settings
 
+Predictor = TypeVar('Predictor') 
+
 logging.basicConfig(
-        filename = './logs/results.log',
+        filename = './logs/run_results.log',
         level = logging.INFO,
         filemode = 'w',
         format = '%(name)s - %(levelname)s - %(message)s'
@@ -130,6 +133,7 @@ def perform_eda(dataframe: pd.DataFrame,
                         cmap= settings.eda_plot['cmap'], 
                         linewidths = settings.eda_plot['linewidths'])
             plt.savefig(f'{img_output_path}/Correlation_heatmap', bbox_inches = 'tight')
+            plt.close()
 
     except AssertionError:
             print("Dataframe is empty !")
@@ -145,6 +149,7 @@ def perform_eda(dataframe: pd.DataFrame,
                     plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
                     sns.countplot(x = dataframe[col_name])
                     plt.savefig(f'{img_output_path}/{col_name}_countplot', bbox_inches = 'tight')
+                    plt.close()
 
     except AssertionError:
             print("No features given for Count Plot")
@@ -158,6 +163,7 @@ def perform_eda(dataframe: pd.DataFrame,
                    plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
                    dataframe[col_name].value_counts('normalize').plot.bar()
                    plt.savefig(f'{img_output_path}/{col_name}_normcountplot', bbox_inches = 'tight')
+                   plt.close()
 
     except AssertionError:
             print("No features given for Normalized Count Plot")
@@ -172,6 +178,8 @@ def perform_eda(dataframe: pd.DataFrame,
                     plt.figure(figsize = (settings.eda_plot['width'], settings.eda_plot['height']))
                     sns.displot(x = dataframe[col_name])
                     plt.savefig(f'{img_output_path}/{col_name}_distplot', bbox_inches = 'tight')
+                    plt.close()
+
     except AssertionError:
             print("No features given for Distribution Plot")
             logging.info("INFO : No features given for Distribution Plot")    
@@ -198,9 +206,7 @@ def encoder_helper(dataframe: pd.DataFrame,
             for encode_col in category_lst:
                     encode_group = dataframe.groupby(encode_col).mean()['Churn']
                     dataframe[encode_col + "_Churn"] = dataframe[encode_col].apply(lambda x : dict(encode_group)[x])
-                    
             return dataframe
-
     except AssertionError:
             print("Given target encode columns is out of dataframe columns")
             logging.error("ERROR : Given target encode columns is out of dataframe columns")
@@ -288,19 +294,24 @@ def classification_report_image(y_train: np.ndarray,
         plt.axis('off');
 
         plt.savefig(f"{img_output_path}/{model_name} Classification Report", bbox_inches = 'tight')
+        plt.close()
     pass
 
 
-def feature_importance_plot(model, 
+def feature_importance_plot(model: Predictor, 
                             X_data: np.ndarray, 
                             img_output_path: str) -> None:
     '''
-    creates and stores the feature importances in pth
-    input:
+    Creates and stores the feature importances in img_output_path.
+    SHAP value and feature importance built-in random forest are selected.
+
+    Args:
+    ----------
             model: model object containing feature_importances_
             X_data: pandas dataframe of X values
             img_output_path: path to store the figure
-    output:
+    Outputs:
+    ----------
              None
     '''
     # SHAPE Feature Importance
@@ -308,9 +319,11 @@ def feature_importance_plot(model,
     shap_values = explainer.shap_values(X_data)
     
     # Create plot
+    plt.figure(figsize=(20,5))
     shap_fig = plt.gcf()
     shap.summary_plot(shap_values, X_data, plot_type="bar")
     shap_fig.savefig(f'{img_output_path}/SHAP TreeExplainer', bbox_inches = 'tight')
+    plt.close()
     
     # Built-In Random Forest Feature Importance
     importances = model.best_estimator_.feature_importances_  #Calculate feature importance
@@ -324,12 +337,20 @@ def feature_importance_plot(model,
     plt.bar(range(X_data.shape[1]), importances[indices])
     plt.xticks(range(X_data.shape[1]), names, rotation=90)
     plt.savefig(f'{img_output_path}/RandomForest Importance Score', bbox_inches = 'tight')
+    plt.close()
 
     pass
 
-def train_models(X_train, X_test, y_train, y_test):
+def train_models(X_train: np.ndarray,
+                 X_test: np.ndarray, 
+                 y_train: np.ndarray, 
+                 y_test: np.ndarray,
+                 model_path: str,
+                 img_output_path: str) -> None:
     '''
-    Traina and store model results: images + scores, and store models.
+    Train and store model results: images + scores, and store models.
+    Selected model are LogistricRegression and RandomForest.
+
     Args:
     ----------
               X_train: X training data
@@ -340,11 +361,68 @@ def train_models(X_train, X_test, y_train, y_test):
     ----------
               None
     '''
+    
+    # Random Forest
+    rfc = RandomForestClassifier(random_state=settings.seed['seed_number'])
+    param_grid = { 
+            'n_estimators': settings.rf_parms['n_estimators'],
+            'max_features': settings.rf_parms['max_features'],
+            'max_depth' : settings.rf_parms['max_depth'],
+            'criterion' :settings.rf_parms['criterion']
+            }
+
+    cv_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv= settings.rf_parms['cv'])
+    cv_rfc.fit(X_train, y_train)
+
+    y_train_preds_rf = cv_rfc.best_estimator_.predict(X_train)
+    y_test_preds_rf = cv_rfc.best_estimator_.predict(X_test)
+
+    # Logistic Regression
+    lrc = LogisticRegression(max_iter = 1000)
+    lrc.fit(X_train, y_train)
+    
+    y_train_preds_lr = lrc.predict(X_train)
+    y_test_preds_lr = lrc.predict(X_test)
+
+    # Save best model into model_path
+    joblib.dump(cv_rfc.best_estimator_, f'{model_path}/rfc_model.pkl')
+    joblib.dump(lrc, f'{model_path}/logistic_model.pkl')
+
+    # Performance plot
+    ## Classification Report
+    classification_report_image(y_train, y_test, 
+                                y_train_preds_lr, y_train_preds_lr,
+                                y_test_preds_rf, y_test_preds_rf,
+                                img_output_path)
+    ## Features Importance Plot
+    feature_importance_plot(cv_rfc, X_test, img_output_path)
+
+    ## ROC Curve for train and test data
+    data_set = {'Train Data' : [X_train, y_train], 'Test Data' : [X_test, y_test]}
+    for data, data_value in data_set.items(): 
+            plt.figure(figsize=(settings.result_plot['width'], settings.result_plot['height']))
+            ax = plt.gca()
+            plot_roc_curve(lrc, data_value[0], data_value[1], ax=ax, alpha= settings.result_plot['alpha'])
+            plot_roc_curve(cv_rfc.best_estimator_, data_value[0], data_value[1], ax=ax, alpha= settings.result_plot['alpha'])
+            plt.title(data)
+            plt.savefig(f'{img_output_path}/{data} ROC Curve')
+            plt.close()
+    
     pass
 
 if __name__ == '__main__':
+        
+        # Path variables : IN
+        raw_data_path = './data'
+
+        # Path variables : OUT
+        data_profile_path = './data/data profile'
+        img_eda_path = './images/eda'
+        img_result_path = './images/results'
+        model_result_path = './models'
+
         # Read in data
-        raw_data = import_data("./data/bank_data.csv")
+        raw_data = import_data(f"{raw_data_path}/bank_data.csv")
         
         # Perform exploratory dat analysis 
         countplot_list = ['Education_Level', 'Income_Category']
@@ -355,15 +433,17 @@ if __name__ == '__main__':
                     'Attrition_Flag', 
                     countplot_list, 
                     distplot_list,
-                    normcountplot_list)
+                    normcountplot_list,
+                    img_eda_path,
+                    data_profile_path)
 
         # Encoding all categorical features
         all_category_features = raw_data.select_dtypes('object').columns
 
         ## Exclude target prediction columns
-        category_features = [colname != 'Attrition_Flag' for colname in all_category_features]
+        category_features = [colname for colname in all_category_features if colname != 'Attrition_Flag']
         encoded_data = encoder_helper(raw_data, category_features)
-
+        
         # Feature engineering
         selected_features = ['Customer_Age', 'Dependent_count', 'Months_on_book',
              'Total_Relationship_Count', 'Months_Inactive_12_mon',
@@ -374,6 +454,5 @@ if __name__ == '__main__':
              'Income_Category_Churn', 'Card_Category_Churn']
 
         X_train, X_test, y_train, y_test = perform_feature_engineering(encoded_data, selected_features, 0.3)
-        
-        
+        train_models(X_train, X_test, y_train, y_test, model_result_path, img_result_path)
         
