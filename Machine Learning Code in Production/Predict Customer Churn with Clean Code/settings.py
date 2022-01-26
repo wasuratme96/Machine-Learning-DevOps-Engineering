@@ -1,3 +1,11 @@
+path = dict(
+    RAW_DATA_PATH = './data',
+    DATA_PROFILE_PATH = './data/data profile',
+    IMG_EDA_PATH = './images/eda',
+    IMG_RESULT_PATH = './images/results',
+    MODEL_RESULT_PATH = './models',
+)
+
 eda_plot = dict(
     width = 20,
     height = 10,
