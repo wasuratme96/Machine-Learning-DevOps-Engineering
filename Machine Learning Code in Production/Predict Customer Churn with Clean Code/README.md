@@ -1,7 +1,9 @@
 # Predict Customer Churn with Production Ready Code
 
 ## Project Description
-Main purpose of this project is to create machine learning model that can **predict credit card customers that are most likely to churn** with PEP8 and **software engineering best pratices** for implementing machine learning in production (modular, documented and tested)
+Main purpose of this project is to create machine learning model script that can **predict credit card customers that are most likely to churn** with PEP8 and **software engineering best pratices** for implementing machine learning in production (modular, documented and tested)
+
+All EDA and model development have been experimented  in **Jupyter Notebook** and convert into *.py* format for modularlization and testing purpose.
 
 ## Data
 This project use data from [kaggle](https://www.kaggle.com/sakshigoyal7/credit-card-customers) which contains data about customer infomations total 23 columns and 10,000 rows. 
@@ -27,6 +29,7 @@ Demographic Data:
         ├── churn_notebook.ipynb   # Notebook for experiment
         ├── churn_library.py                   # Main script for running
         ├── churn_script_logging_and_tests.py  # Test and logging script
+        ├── settings.py                        # Collect constant values
         └── README.md                          # This file
 
 ## Running Files
