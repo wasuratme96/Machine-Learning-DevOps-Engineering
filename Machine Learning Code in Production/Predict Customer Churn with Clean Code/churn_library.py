@@ -37,14 +37,16 @@ sns.set()
 import constant
 Predictor = TypeVar('Predictor')
 
-logging.basicConfig(
-    filename='./logs/run_results.log',
-    level=logging.INFO,
-    filemode='w',
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# Logger Settings
 run_logging = logging.getLogger("SCRIPT RUN LOG")
+run_logging.setLevel(logging.INFO)
 
+fh = logging.FileHandler('./logs/run_results.log')
+fh.setLevel(logging.INFO)
+fmt = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(fmt)
+
+run_logging.addHandler(fh)
 
 def import_data(file_path: str) -> pd.DataFrame:
     '''
@@ -61,23 +63,28 @@ def import_data(file_path: str) -> pd.DataFrame:
     '''
     try:
 
-        run_logging.info("File path : %s", file_path)
+        run_logging.info("File path : %s", str(file_path))
         assert isinstance(file_path, str)
 
         dataframe = pd.read_csv(file_path, index_col=0)
 
-        run_logging.info("SUCCESS: Read file success")
-        run_logging.info("SUCCESS: Dataframe have %s rows", dataframe.shape[0])
-        run_logging.info("SUCCESS: Dataframe have %s columns", dataframe.shape[1])
+        run_logging.info("Read file success")
+        run_logging.info("Dataframe have %s rows", dataframe.shape[0])
+        run_logging.info("Dataframe have %s columns", dataframe.shape[1])
         return dataframe
 
-    except FileNotFoundError:
+    except FileNotFoundError as err:
         print("No such file or directory from given path")
-        run_logging.error("ERROR : No such file/ directory from given path")
-    except AssertionError:
+        run_logging.error("ERROR: No such file/ directory from given path")
+        raise err
+    except pd.errors.EmptyDataError as err:
+        print("Input file is empty")
+        run_logging.error("ERROR: Input file is empty")
+        raise err
+    except AssertionError as err:
         print("Input path is inccorrect format")
-        run_logging.error("ERROR : Input path is inccorrect format")
-
+        run_logging.error("ERROR: Input path is inccorrect format")
+        raise err
 
 def perform_eda(dataframe: pd.DataFrame,
                 target_col: str,
@@ -213,7 +220,6 @@ def perform_eda(dataframe: pd.DataFrame,
     except AssertionError:
         print("No features given for Distribution Plot")
         run_logging.info("INFO : No features given for Distribution Plot")
-
 
 def encoder_helper(dataframe: pd.DataFrame,
                    category_lst: list) -> pd.DataFrame:
