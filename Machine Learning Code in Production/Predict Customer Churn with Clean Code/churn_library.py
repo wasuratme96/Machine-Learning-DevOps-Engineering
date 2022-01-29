@@ -5,10 +5,12 @@ Exploratory data analysis and model tuning with Gridsearch method is included.
 
 Usage : ./churn_library.py
 Authors : Wasurat Soontronchai <wasurat_me96@outlook.com>
+Date : 27 Jan 2022
 '''
 
 # Standard Library
 from typing import TypeVar
+from typing import Dict
 from numbers import Number
 import logging
 
@@ -32,15 +34,16 @@ import seaborn as sns
 sns.set()
 
 # Settings and Constant
-import settings
+import constant
 Predictor = TypeVar('Predictor')
 
 logging.basicConfig(
     filename='./logs/run_results.log',
     level=logging.INFO,
     filemode='w',
-    format='%(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+run_logging = logging.getLogger("SCRIPT RUN LOG")
 
 
 def import_data(file_path: str) -> pd.DataFrame:
@@ -57,18 +60,23 @@ def import_data(file_path: str) -> pd.DataFrame:
             dataframe (pd.DataFrame): pandas dataframe
     '''
     try:
+
+        run_logging.info("File path : %s", file_path)
         assert isinstance(file_path, str)
 
         dataframe = pd.read_csv(file_path, index_col=0)
-        logging.info("Read file success")
+
+        run_logging.info("SUCCESS: Read file success")
+        run_logging.info("SUCCESS: Dataframe have %s rows", dataframe.shape[0])
+        run_logging.info("SUCCESS: Dataframe have %s columns", dataframe.shape[1])
         return dataframe
 
     except FileNotFoundError:
         print("No such file or directory from given path")
-        logging.error("ERROR : No such file/ directory from given path")
+        run_logging.error("ERROR : No such file/ directory from given path")
     except AssertionError:
         print("Input path is inccorrect format")
-        logging.error("ERROR : Input path is inccorrect format")
+        run_logging.error("ERROR : Input path is inccorrect format")
 
 
 def perform_eda(dataframe: pd.DataFrame,
@@ -108,14 +116,14 @@ def perform_eda(dataframe: pd.DataFrame,
 
         # Change target column to numerical value
         dataframe['Churn'] = np.where(
-            dataframe[target_col] == settings.label['class_0'], 0, 1)
+            dataframe[target_col] == constant.label['class_0'], 0, 1)
 
     except AssertionError:
         print("Target prediction is not binary problem")
-        logging.error("ERROR : Target prediction is not binary problem")
+        run_logging.error("ERROR : Target prediction is not binary problem")
     except KeyError:
         print("Given target prediction columns is not available in dataframe")
-        logging.error(
+        run_logging.error(
             "ERROR : Target prediction columns is not available in dataframe")
 
     try:
@@ -124,28 +132,28 @@ def perform_eda(dataframe: pd.DataFrame,
 
         # Missing value properties
         pd.DataFrame(dataframe.isnull().sum(), columns=['Null Value'])\
-                .to_csv(f"{settings.path['DATA_PROFILE_PATH']}/missing_value.csv")
+                .to_csv(f"{constant.path['DATA_PROFILE_PATH']}/missing_value.csv")
         # Basic descriptive statistics
         dataframe.describe()\
-                .to_csv(f"{settings.path['DATA_PROFILE_PATH']}/basic_stat.csv")
+                .to_csv(f"{constant.path['DATA_PROFILE_PATH']}/basic_stat.csv")
 
         # Heat Map Plot
         plt.figure(
             figsize=(
-                settings.eda_plot['width'],
-                settings.eda_plot['height']))
+                constant.eda_plot['width'],
+                constant.eda_plot['height']))
         sns.heatmap(dataframe.corr(),
-                    annot=settings.eda_plot['annot'],
-                    cmap=settings.eda_plot['cmap'],
-                    linewidths=settings.eda_plot['linewidths'])
+                    annot=constant.eda_plot['annot'],
+                    cmap=constant.eda_plot['cmap'],
+                    linewidths=constant.eda_plot['linewidths'])
         plt.savefig(
-            f"{settings.path['IMG_EDA_PATH']}/Correlation_heatmap",
+            f"{constant.path['IMG_EDA_PATH']}/Correlation_heatmap",
             bbox_inches='tight')
         plt.close()
 
     except AssertionError:
         print("Dataframe is empty !")
-        logging.error("ERROR : Dataframe is empty ")
+        run_logging.error("ERROR : Dataframe is empty ")
 
     try:
         # Check count-plot columns list
@@ -156,17 +164,17 @@ def perform_eda(dataframe: pd.DataFrame,
         for col_name in countplot_list:
             plt.figure(
                 figsize=(
-                    settings.eda_plot['width'],
-                    settings.eda_plot['height']))
+                    constant.eda_plot['width'],
+                    constant.eda_plot['height']))
             sns.countplot(x=dataframe[col_name])
             plt.savefig(
-                f"{settings.path['IMG_EDA_PATH']}/{col_name}_countplot",
+                f"{constant.path['IMG_EDA_PATH']}/{col_name}_countplot",
                 bbox_inches='tight')
             plt.close()
 
     except AssertionError:
         print("No features given for Count Plot")
-        logging.info("INFO : No features given for Count Plot")
+        run_logging.info("INFO : No features given for Count Plot")
 
     try:
         assert len(normcountplot_list) > 0
@@ -175,17 +183,17 @@ def perform_eda(dataframe: pd.DataFrame,
         for col_name in normcountplot_list:
             plt.figure(
                 figsize=(
-                    settings.eda_plot['width'],
-                    settings.eda_plot['height']))
+                    constant.eda_plot['width'],
+                    constant.eda_plot['height']))
             dataframe[col_name].value_counts('normalize').plot.bar()
             plt.savefig(
-                f"{settings.path['IMG_EDA_PATH']}/{col_name}_normcountplot",
+                f"{constant.path['IMG_EDA_PATH']}/{col_name}_normcountplot",
                 bbox_inches='tight')
             plt.close()
 
     except AssertionError:
         print("No features given for Normalized Count Plot")
-        logging.info("INFO : No features given for Normalized Count Plot")
+        run_logging.info("INFO : No features given for Normalized Count Plot")
 
     try:
         assert len(distplot_list) > 0
@@ -194,17 +202,17 @@ def perform_eda(dataframe: pd.DataFrame,
         for col_name in distplot_list:
             plt.figure(
                 figsize=(
-                    settings.eda_plot['width'],
-                    settings.eda_plot['height']))
+                    constant.eda_plot['width'],
+                    constant.eda_plot['height']))
             sns.displot(x=dataframe[col_name])
             plt.savefig(
-                f"{settings.path['IMG_EDA_PATH']}/{col_name}_distplot",
+                f"{constant.path['IMG_EDA_PATH']}/{col_name}_distplot",
                 bbox_inches='tight')
             plt.close()
 
     except AssertionError:
         print("No features given for Distribution Plot")
-        logging.info("INFO : No features given for Distribution Plot")
+        run_logging.info("INFO : No features given for Distribution Plot")
 
 
 def encoder_helper(dataframe: pd.DataFrame,
@@ -233,7 +241,7 @@ def encoder_helper(dataframe: pd.DataFrame,
         return dataframe
     except AssertionError:
         print("Given target encode columns is out of dataframe columns")
-        logging.error(
+        run_logging.error(
             "ERROR : Given target encode columns is out of dataframe columns")
 
 
@@ -263,24 +271,23 @@ def perform_feature_engineering(dataframe: pd.DataFrame,
         features = dataframe[features_list]
         target = dataframe['Churn']
         x_train, x_test, y_train, y_test = train_test_split(
-            features, target, test_size=test_ratio, random_state=settings.seed['seed_number'])
+            features, target, test_size=test_ratio, random_state=constant.seed['seed_number'])
         return x_train, x_test, y_train, y_test
 
     except AssertionError:
         print("Given selected columns is out of dataframe columns")
-        logging.error(
+        run_logging.error(
             "ERROR : Given selected columns is out of dataframe columns")
 
     except ValueError:
         print(
             f"""test_ratio should be positive int with smaller than number
             of data {len(dataframe)} ora float in (0, 1) range""")
-        logging.error(
+        run_logging.error(
             "ERROR : Given test_ratio is out of range or negative value")
 
 
-def classification_report_image(y_train: np.ndarray,
-                                y_test: np.ndarray,
+def classification_report_image(y_actual_dict: Dict,
                                 y_train_preds_lr: np.ndarray,
                                 y_train_preds_rf: np.ndarray,
                                 y_test_preds_lr: np.ndarray,
@@ -302,6 +309,8 @@ def classification_report_image(y_train: np.ndarray,
     ----------
              None
     '''
+    y_train = y_actual_dict['train']
+    y_test = y_actual_dict['test']
     results_dict = {
         'Logistic Regresion': [y_train_preds_lr, y_test_preds_lr],
         'Random Forest': [y_train_preds_rf, y_test_preds_rf]
@@ -325,7 +334,7 @@ def classification_report_image(y_train: np.ndarray,
                 'fontsize': 10}, fontproperties='monospace')
         plt.axis('off')
         plt.savefig(
-            f"{settings.path['IMG_RESULT_PATH']}/{model_name} Classification Report",
+            f"{constant.path['IMG_RESULT_PATH']}/{model_name} Classification Report",
             bbox_inches='tight')
         plt.close()
 
@@ -353,7 +362,7 @@ def feature_importance_plot(model: Predictor,
     shap_fig = plt.gcf()
     shap.summary_plot(shap_values, x_data, plot_type="bar")
     shap_fig.savefig(
-        f"{settings.path['IMG_RESULT_PATH']}/SHAP TreeExplainer",
+        f"{constant.path['IMG_RESULT_PATH']}/SHAP TreeExplainer",
         bbox_inches='tight')
     plt.close()
 
@@ -372,7 +381,7 @@ def feature_importance_plot(model: Predictor,
     plt.bar(range(x_data.shape[1]), importances[indices])
     plt.xticks(range(x_data.shape[1]), names, rotation=90)
     plt.savefig(
-        f"{settings.path['IMG_RESULT_PATH']}/RandomForest Importance Score",
+        f"{constant.path['IMG_RESULT_PATH']}/RandomForest Importance Score",
         bbox_inches='tight')
     plt.close()
 
@@ -383,6 +392,7 @@ def train_models(x_train: np.ndarray,
     '''
     Train and store model results: images + scores, and store models.
     Selected model are LogistricRegression and RandomForest.
+    Hyperparameter tuning have been done for RandomForest
 
     Args:
     ----------
@@ -396,37 +406,38 @@ def train_models(x_train: np.ndarray,
     '''
 
     # Random Forest
-    rfc = RandomForestClassifier(random_state=settings.seed['seed_number'])
+    rfc = RandomForestClassifier(random_state=constant.seed['seed_number'])
     param_grid = {
-        'n_estimators': settings.rf_parms['n_estimators'],
-        'max_features': settings.rf_parms['max_features'],
-        'max_depth': settings.rf_parms['max_depth'],
-        'criterion': settings.rf_parms['criterion']
+        'n_estimators': constant.rf_parms['n_estimators'],
+        'max_features': constant.rf_parms['max_features'],
+        'max_depth': constant.rf_parms['max_depth'],
+        'criterion': constant.rf_parms['criterion']
     }
 
     cv_rfc = GridSearchCV(
         estimator=rfc,
         param_grid=param_grid,
-        cv=settings.rf_parms['cv'])
+        cv=constant.rf_parms['cv'])
     cv_rfc.fit(x_train, y_train)
 
     y_train_preds_rf = cv_rfc.best_estimator_.predict(x_train)
     y_test_preds_rf = cv_rfc.best_estimator_.predict(x_test)
 
     # Logistic Regression
-    lrc = LogisticRegression(max_iter=1000)
+    lrc = LogisticRegression(max_iter=constant.lr_parms['max_iter'])
     lrc.fit(x_train, y_train)
 
     y_train_preds_lr = lrc.predict(x_train)
     y_test_preds_lr = lrc.predict(x_test)
 
     # Save best model into model_path
-    joblib.dump(cv_rfc.best_estimator_, f"{settings.path['MODEL_RESULT_PATH']}/rfc_model.pkl")
-    joblib.dump(lrc, f"{settings.path['MODEL_RESULT_PATH']}/logistic_model.pkl")
+    joblib.dump(cv_rfc.best_estimator_, f"{constant.path['MODEL_RESULT_PATH']}/rfc_model.pkl")
+    joblib.dump(lrc, f"{constant.path['MODEL_RESULT_PATH']}/logistic_model.pkl")
 
     # Performance plot
     # Classification Report
-    classification_report_image(y_train, y_test,
+    y_true_dict = {"train" : y_train, "test" : y_test}
+    classification_report_image(y_true_dict,
                                 y_train_preds_lr, y_train_preds_rf,
                                 y_test_preds_lr, y_test_preds_rf)
     # Features Importance Plot
@@ -435,33 +446,34 @@ def train_models(x_train: np.ndarray,
     # ROC Curve for train and test data
     data_set = {
         'Train Data': [
-            x_train, y_train], 'Test Data': [
+            x_train, y_train],
+        'Test Data': [
             x_test, y_test]}
     for data, data_value in data_set.items():
         plt.figure(
             figsize=(
-                settings.result_plot['width'],
-                settings.result_plot['height']))
+                constant.result_plot['width'],
+                constant.result_plot['height']))
         fig_plot = plt.gca()
         plot_roc_curve(
             lrc,
             data_value[0],
             data_value[1],
             ax=fig_plot,
-            alpha=settings.result_plot['alpha'])
+            alpha=constant.result_plot['alpha'])
         plot_roc_curve(
             cv_rfc.best_estimator_,
             data_value[0],
             data_value[1],
             ax=fig_plot,
-            alpha=settings.result_plot['alpha'])
+            alpha=constant.result_plot['alpha'])
         plt.title(data)
-        plt.savefig(f"{settings.path['IMG_RESULT_PATH']}/{data} ROC Curve")
+        plt.savefig(f"{constant.path['IMG_RESULT_PATH']}/{data} ROC Curve")
         plt.close()
 
 if __name__ == '__main__':
     # Read in data
-    raw_data = import_data(f"{settings.path['RAW_DATA_PATH']}/bank_data.csv")
+    raw_data = import_data(f"{constant.path['RAW_DATA_PATH']}/bank_data.csv")
 
     # Perform exploratory dat analysis
     countplot_columns = ['Education_Level', 'Income_Category']

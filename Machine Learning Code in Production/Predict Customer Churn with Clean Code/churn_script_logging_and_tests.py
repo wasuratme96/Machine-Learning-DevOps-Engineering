@@ -1,31 +1,49 @@
+'''
+To test and log the passes or error on each function in churn_library.py
+All information will be stored in ./logs/test_churn_library.log
+
+Usage : ./pytest churn_script_logging_and_tests.py
+Authors : Wasurat Soontronchai <wasurat_me96@outlook.com>
+Date : 27 Jan 2022
+'''
 import os
 import logging
-import churn_library_solution as cls
+
+import pytest
+import joblib
+
+import churn_library as cl
 
 logging.basicConfig(
-    filename='./logs/churn_library.log',
-    level = logging.INFO,
+    filename='./logs/test_results.log',
+    level=logging.INFO,
     filemode='w',
-    format='%(name)s - %(levelname)s - %(message)s')
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+test_logging = logging.getLogger("UNIT TEST RUN")
 
-def test_import(import_data):
+def test_import(file_path):
 	'''
-	test data import - this example is completed for you to assist with the other test functions
+	test import_data functions
 	'''
 	try:
-		df = import_data("./data/bank_data.csv")
-		logging.info("Testing import_data: SUCCESS")
+		assert isinstance(file_path, str)
+		df = cl.import_data(file_path)
+		test_logging.info("Testing import_data: SUCCESS")
+	except AssertionError as err:
+		test_logging.error("Testing import_data: given file path is not string")
+		raise err
+
 	except FileNotFoundError as err:
-		logging.error("Testing import_eda: The file wasn't found")
+		test_logging.error("Testing import_data: The file wasn't found")
 		raise err
 
 	try:
 		assert df.shape[0] > 0
 		assert df.shape[1] > 0
 	except AssertionError as err:
-		logging.error("Testing import_data: The file doesn't appear to have rows and columns")
+		test_logging.error("Testing import_data: The file doesn't appear to have rows and columns")
 		raise err
-
 
 def test_eda(perform_eda):
 	'''
@@ -52,7 +70,8 @@ def test_train_models(train_models):
 
 
 if __name__ == "__main__":
-	pass
+	test_import(file_path = './data/bank_data.csv')
+	
 
 
 

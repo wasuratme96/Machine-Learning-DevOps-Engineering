@@ -1,3 +1,6 @@
-root - INFO - Read file success
-numexpr.utils - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
-numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2022-01-29 17:06:57,224 - SCRIPT RUN LOG - INFO - File path : ./data/bank_data.csv
+2022-01-29 17:06:57,251 - SCRIPT RUN LOG - INFO - SUCCESS: Read file success
+2022-01-29 17:06:57,251 - SCRIPT RUN LOG - INFO - SUCCESS: Dataframe have 10127 rows
+2022-01-29 17:06:57,251 - SCRIPT RUN LOG - INFO - SUCCESS: Dataframe have 21 columns
+2022-01-29 17:06:58,561 - numexpr.utils - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2022-01-29 17:06:58,561 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
