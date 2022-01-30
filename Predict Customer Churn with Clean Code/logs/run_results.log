@@ -1,0 +1,35 @@
+2022-01-30 16:13:45,885 - SCRIPT RUN LOG - INFO - File path : ./data/bank_data.csv
+2022-01-30 16:13:45,912 - SCRIPT RUN LOG - INFO - Read file success
+2022-01-30 16:13:45,912 - SCRIPT RUN LOG - INFO - Dataframe have 10127 rows
+2022-01-30 16:13:45,912 - SCRIPT RUN LOG - INFO - Dataframe have 21 columns
+2022-01-30 16:13:45,912 - SCRIPT RUN LOG - INFO - File path : ./data/bank_data.csv
+2022-01-30 16:13:45,936 - SCRIPT RUN LOG - INFO - Read file success
+2022-01-30 16:13:45,936 - SCRIPT RUN LOG - INFO - Dataframe have 10127 rows
+2022-01-30 16:13:45,936 - SCRIPT RUN LOG - INFO - Dataframe have 21 columns
+2022-01-30 16:13:48,261 - SCRIPT RUN LOG - INFO - File path : ./data/bank_data.csv
+2022-01-30 16:13:48,285 - SCRIPT RUN LOG - INFO - Read file success
+2022-01-30 16:13:48,285 - SCRIPT RUN LOG - INFO - Dataframe have 10127 rows
+2022-01-30 16:13:48,285 - SCRIPT RUN LOG - INFO - Dataframe have 21 columns
+2022-01-30 16:13:48,371 - SCRIPT RUN LOG - INFO - INFO : Gender columns have been encoded
+2022-01-30 16:13:48,572 - SCRIPT RUN LOG - INFO - INFO : Education_Level columns have been encoded
+2022-01-30 16:13:48,697 - SCRIPT RUN LOG - INFO - INFO : Marital_Status columns have been encoded
+2022-01-30 16:13:48,880 - SCRIPT RUN LOG - INFO - INFO : Income_Category columns have been encoded
+2022-01-30 16:13:49,009 - SCRIPT RUN LOG - INFO - INFO : Card_Category columns have been encoded
+2022-01-30 16:13:49,010 - SCRIPT RUN LOG - INFO - File path : ./data/bank_data.csv
+2022-01-30 16:13:49,034 - SCRIPT RUN LOG - INFO - Read file success
+2022-01-30 16:13:49,034 - SCRIPT RUN LOG - INFO - Dataframe have 10127 rows
+2022-01-30 16:13:49,034 - SCRIPT RUN LOG - INFO - Dataframe have 21 columns
+2022-01-30 16:13:49,116 - SCRIPT RUN LOG - INFO - INFO : Gender columns have been encoded
+2022-01-30 16:13:49,320 - SCRIPT RUN LOG - INFO - INFO : Education_Level columns have been encoded
+2022-01-30 16:13:49,452 - SCRIPT RUN LOG - INFO - INFO : Marital_Status columns have been encoded
+2022-01-30 16:13:49,640 - SCRIPT RUN LOG - INFO - INFO : Income_Category columns have been encoded
+2022-01-30 16:13:49,778 - SCRIPT RUN LOG - INFO - INFO : Card_Category columns have been encoded
+2022-01-30 16:13:49,782 - SCRIPT RUN LOG - INFO - File path : ./data/bank_data.csv
+2022-01-30 16:13:49,807 - SCRIPT RUN LOG - INFO - Read file success
+2022-01-30 16:13:49,807 - SCRIPT RUN LOG - INFO - Dataframe have 10127 rows
+2022-01-30 16:13:49,807 - SCRIPT RUN LOG - INFO - Dataframe have 21 columns
+2022-01-30 16:13:49,894 - SCRIPT RUN LOG - INFO - INFO : Gender columns have been encoded
+2022-01-30 16:13:50,098 - SCRIPT RUN LOG - INFO - INFO : Education_Level columns have been encoded
+2022-01-30 16:13:50,229 - SCRIPT RUN LOG - INFO - INFO : Marital_Status columns have been encoded
+2022-01-30 16:13:50,395 - SCRIPT RUN LOG - INFO - INFO : Income_Category columns have been encoded
+2022-01-30 16:13:50,518 - SCRIPT RUN LOG - INFO - INFO : Card_Category columns have been encoded

@@ -1,0 +1,18 @@
+2022-01-30 16:13:45,912 - UNIT TEST RUN - INFO - Testing import_data: SUCCESS
+2022-01-30 16:13:48,260 - UNIT TEST RUN - INFO - Testing perform_eda: missing_value.csv creation SUCCESS
+2022-01-30 16:13:48,260 - UNIT TEST RUN - INFO - Testing perform_eda: basic_stat.csv creation SUCCESS
+2022-01-30 16:13:48,260 - UNIT TEST RUN - INFO - Testing perform_eda: Correlation_heatmap creation SUCCESS
+2022-01-30 16:13:48,260 - UNIT TEST RUN - INFO - Testing perform_eda: Education_Level_countplot.png creation SUCCESS
+2022-01-30 16:13:48,261 - UNIT TEST RUN - INFO - Testing perform_eda: Income_Category_countplot.png creation SUCCESS
+2022-01-30 16:13:48,261 - UNIT TEST RUN - INFO - Testing perform_eda: Attrition_Flag_countplot.png creation SUCCESS
+2022-01-30 16:13:48,261 - UNIT TEST RUN - INFO - Testing perform_eda: Total_Trans_Ct_distplot.png creation SUCCESS
+2022-01-30 16:13:48,261 - UNIT TEST RUN - INFO - Testing perform_eda: Total_Trans_Amt_distplot.png creation SUCCESS
+2022-01-30 16:13:48,261 - UNIT TEST RUN - INFO - Testing perform_eda: Marital_Status_normcountplot.png creation SUCCESS
+2022-01-30 16:13:48,261 - UNIT TEST RUN - INFO - Testing perform_eda: Card_Category_normcountplot.png creation SUCCESS
+2022-01-30 16:13:49,010 - UNIT TEST RUN - INFO - Testing encoder_helper: Gender_Churn column encode SUCCESS
+2022-01-30 16:13:49,010 - UNIT TEST RUN - INFO - Testing encoder_helper: Education_Level_Churn column encode SUCCESS
+2022-01-30 16:13:49,010 - UNIT TEST RUN - INFO - Testing encoder_helper: Marital_Status_Churn column encode SUCCESS
+2022-01-30 16:13:49,010 - UNIT TEST RUN - INFO - Testing encoder_helper: Income_Category_Churn column encode SUCCESS
+2022-01-30 16:13:49,010 - UNIT TEST RUN - INFO - Testing encoder_helper: Card_Category_Churn column encode SUCCESS
+2022-01-30 16:13:49,782 - UNIT TEST RUN - INFO - Testing perform_feature_engineering: Train and Test split SUCCESS
+2022-01-30 16:21:32,834 - UNIT TEST RUN - INFO - Testing train_models: logistic model creation SUCCESS
