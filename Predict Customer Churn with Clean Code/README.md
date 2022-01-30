@@ -103,8 +103,8 @@ In ```churn_script_logging_and_tests.py```, there are 5 test functions as below
 ## Code Format Scoring
 According to score criteria from [pylint](https://pylint.org/) with the running script (```churn_library.py```) and testing script (```churn_script_logging_and_tests.py```) below pictures is results 
 
-**churn_library.py** = 9.84/10
+**churn_library.py** = 9.84/10 <br/>
 ![](./Asset/pylint_score_run_script.png)
 
-**churn_script_logging_and_tests.py** = 9.79/10
+**churn_script_logging_and_tests.py** = 9.79/10 <br/>
 ![](./Asset/pylint_score_test_script.png)
