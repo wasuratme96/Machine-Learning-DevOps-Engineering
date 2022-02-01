@@ -1,0 +1,31 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.5",
+    "heartbeatAt": "2022-02-01T11:58:33.743697",
+    "startedAt": "2022-02-01T11:58:30.483031",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--input_file",
+        "zen.txt",
+        "--artifact_name",
+        "zen_of_python",
+        "--artifact_type",
+        "text_file",
+        "--artifact_description",
+        "20 aphorisms about writing good python code"
+    ],
+    "state": "running",
+    "program": "upload_artifact.py",
+    "codePath": "lesson-1-machine-learning-pipelines/exercises/exercise_1/starter/upload_artifact.py",
+    "git": {
+        "remote": "https://github.com/udacity/nd0821-c2-build-model-workflow-exercises.git",
+        "commit": "b4e585e68b0758a9897c69f793a7d22f63426a9c"
+    },
+    "email": "wasurat_me96@outlook.com",
+    "root": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline for Short-term Rental Price in NYC/Building ML Workflow Exercise/nd0821-c2-build-model-workflow-exercises",
+    "host": "Wasurats-MacBook-Pro.local",
+    "username": "wasuratsoontronchai",
+    "executable": "/Users/wasuratsoontronchai/opt/anaconda3/bin/python"
+}
