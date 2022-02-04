@@ -1,0 +1,24 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.12",
+    "heartbeatAt": "2022-02-04T12:33:23.282642",
+    "startedAt": "2022-02-04T12:33:22.043418",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "-f",
+        "/Users/wasuratsoontronchai/Library/Jupyter/runtime/kernel-5a99b0dd-a372-421f-977a-c24465a6695b.json"
+    ],
+    "state": "running",
+    "program": "EDA.ipynb",
+    "root": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering",
+    "git": {
+        "remote": "https://github.com/wasuratme96/Machine-Learning-DevOps-Engineering.git",
+        "commit": "d5c96bb7cbd08c5c5c122df2523806063a05268d"
+    },
+    "email": "wasurat_me96@outlook.com",
+    "host": "Wasurats-MacBook-Pro.local",
+    "username": "wasuratsoontronchai",
+    "executable": "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-8f952277b2a31650945ff8a1ee0909142750c5f7/bin/python"
+}
