@@ -1,0 +1,31 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.12",
+    "heartbeatAt": "2022-02-04T11:38:46.121664",
+    "startedAt": "2022-02-04T11:38:44.320828",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--file_url",
+        "https://raw.githubusercontent.com/scikit-learn/scikit-learn/4dfdfb4e1bb3719628753a4ece995a1b2fa5312a/sklearn/datasets/data/iris.csv",
+        "--artifact_name",
+        "iris.csv",
+        "--artifact_type",
+        "raw_data",
+        "--artifact_description",
+        "Input data"
+    ],
+    "state": "running",
+    "program": "download_data.py",
+    "codePath": "Reproducible ML Pipeline for Short-term Rental Price in NYC/Building ML Workflow Exercise/lesson-1-machine-learning-pipelines/exercises/exercise_3/starter/download_data/download_data.py",
+    "git": {
+        "remote": "https://github.com/wasuratme96/Machine-Learning-DevOps-Engineering.git",
+        "commit": "bddd8ccb1d7ed5492574589a6b194773134525e6"
+    },
+    "email": "wasurat_me96@outlook.com",
+    "root": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering",
+    "host": "Wasurats-MacBook-Pro.local",
+    "username": "wasuratsoontronchai",
+    "executable": "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-dcab57294d4c8d8af89cb670ca7f21a98adaaf45/bin/python"
+}
