@@ -10,13 +10,11 @@ Each exercise should be contained in its own folder using the naming convention 
 exercises
     |_ concept1-hello-world
     |   |_ starter
-    |   |   |_ exercise-files
-    |   |_ solution
-    |   |   |_ solution_files
+    |      |_ exercise-files
     |_ concept2-foo-bar
     |   |_ starter
     |   |   |_ exercise-files
-    |   |_ solution
-    |   |   |_ solution_files
+    |   |
+    |   ...
     |_ README.md
 ```

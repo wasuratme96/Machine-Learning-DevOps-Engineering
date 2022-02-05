@@ -1,0 +1,31 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.12",
+    "heartbeatAt": "2022-02-05T03:19:59.724469",
+    "startedAt": "2022-02-05T03:19:58.174596",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--input_artifact",
+        "exercise_4/genres_mod.parquet:latest",
+        "--artifact_name",
+        "preprocessed_data.csv",
+        "--artifact_type",
+        "clean_data",
+        "--artifact_description",
+        "Data after preprocessing"
+    ],
+    "state": "running",
+    "program": "run.py",
+    "codePath": "Reproducible ML Pipeline for Short-term Rental Price in NYC/Building ML Workflow Exercise/lesson-1-machine-learning-pipelines/exercises/exercise_5/starter/run.py",
+    "git": {
+        "remote": "https://github.com/wasuratme96/Machine-Learning-DevOps-Engineering.git",
+        "commit": "74b3b667a465172cd71d70db6a50920d2e85c4b1"
+    },
+    "email": "wasurat_me96@outlook.com",
+    "root": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering",
+    "host": "Wasurats-MacBook-Pro.local",
+    "username": "wasuratsoontronchai",
+    "executable": "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-cfa08ae32a7edb825a91edaf9656a4c970d41a75/bin/python"
+}
