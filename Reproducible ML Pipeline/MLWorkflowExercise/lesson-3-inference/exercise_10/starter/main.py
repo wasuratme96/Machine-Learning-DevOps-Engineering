@@ -31,7 +31,6 @@ def go(config: DictConfig):
             "model_config": model_config
         },
     )
-
-
+    
 if __name__ == "__main__":
     go()

@@ -1,0 +1,7 @@
+2022-02-01 23:03:22,462 Getting artifact
+Traceback (most recent call last):
+  File "use_artifact.py", line 39, in <module>
+    go(args)
+  File "use_artifact.py", line 18, in go
+    artifact = wandb.Artifact(name = args.artifact_name)
+TypeError: __init__() missing 1 required positional argument: 'type'

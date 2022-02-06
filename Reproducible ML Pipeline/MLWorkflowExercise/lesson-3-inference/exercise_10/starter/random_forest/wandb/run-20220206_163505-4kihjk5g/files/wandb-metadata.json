@@ -1,0 +1,27 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.12",
+    "heartbeatAt": "2022-02-06T09:35:07.047025",
+    "startedAt": "2022-02-06T09:35:05.859102",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--train_data",
+        "exercise_6/data_train.csv:latest",
+        "--model_config",
+        "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline/MLWorkflowExercise/lesson-3-inference/exercise_10/starter/outputs/2022-02-06/16-35-00/random_forest_config.json"
+    ],
+    "state": "running",
+    "program": "run.py",
+    "codePath": "Reproducible ML Pipeline/MLWorkflowExercise/lesson-3-inference/exercise_10/starter/random_forest/run.py",
+    "git": {
+        "remote": "https://github.com/wasuratme96/Machine-Learning-DevOps-Engineering.git",
+        "commit": "9889d6e1706b47834ceed9f8217fc8f20873a7fa"
+    },
+    "email": "wasurat_me96@outlook.com",
+    "root": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering",
+    "host": "Wasurats-MacBook-Pro.local",
+    "username": "wasuratsoontronchai",
+    "executable": "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-5679c9630283f7b717d8a249528b19301d299829/bin/python"
+}

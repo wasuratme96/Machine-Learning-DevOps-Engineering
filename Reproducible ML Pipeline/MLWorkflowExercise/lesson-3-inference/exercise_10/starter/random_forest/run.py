@@ -139,7 +139,7 @@ def get_inference_pipeline(args):
 
     ############# YOUR CODE HERE
     nlp_transformer = make_pipeline(
-        SimpleImputer(startegy = "constant", fill_value = ""),
+        SimpleImputer(strategy = "constant", fill_value = ""),
         reshape_to_1d,
         TfidfVectorizer(binary=True)
     )

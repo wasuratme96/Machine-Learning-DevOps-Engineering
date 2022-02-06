@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible%20ML%20Pipeline/MLWorkflowExercise/lesson-3-inference/exercise_10/starter/mlruns/0/bc5d30eb719444a1bfc1885d19e4144d/artifacts
+end_time: 1644140061222
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: bc5d30eb719444a1bfc1885d19e4144d
+run_uuid: bc5d30eb719444a1bfc1885d19e4144d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1644139930804
+status: 4
+tags: []
+user_id: wasuratsoontronchai
