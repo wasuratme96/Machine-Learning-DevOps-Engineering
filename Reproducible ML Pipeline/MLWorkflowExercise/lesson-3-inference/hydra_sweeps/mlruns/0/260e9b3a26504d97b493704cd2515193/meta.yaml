@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible%20ML%20Pipeline/MLWorkflowExercise/lesson-3-inference/hydra_sweeps/mlruns/0/260e9b3a26504d97b493704cd2515193/artifacts
+end_time: 1644158572309
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 260e9b3a26504d97b493704cd2515193
+run_uuid: 260e9b3a26504d97b493704cd2515193
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1644158352621
+status: 3
+tags: []
+user_id: wasuratsoontronchai

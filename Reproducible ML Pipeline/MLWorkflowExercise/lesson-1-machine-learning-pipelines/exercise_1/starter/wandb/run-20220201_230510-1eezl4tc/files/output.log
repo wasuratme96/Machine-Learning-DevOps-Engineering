@@ -1,7 +1,0 @@
-2022-02-01 23:05:16,843 Getting artifact
-Traceback (most recent call last):
-  File "use_artifact.py", line 39, in <module>
-    go(args)
-  File "use_artifact.py", line 18, in go
-    artifact = run.use_artifact(name = args.artifact_name)
-TypeError: use_artifact() got an unexpected keyword argument 'name'

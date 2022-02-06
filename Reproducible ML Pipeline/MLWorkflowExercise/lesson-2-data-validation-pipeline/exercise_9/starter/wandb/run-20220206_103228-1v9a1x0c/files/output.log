@@ -1,7 +1,0 @@
-============================= test session starts ==============================
-platform darwin -- Python 3.8.12, pytest-6.2.2, py-1.11.0, pluggy-0.13.1 -- /Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-c86639da1eecf5a556ffdc9bec299b5662e80681/bin/python
-cachedir: .pytest_cache
-rootdir: /Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline for Short-term Rental Price in NYC/Building ML Workflow Exercise/lesson-2-data-validation-pipeline/exercise_9/starter
-collecting ... collected 1 item
-
-test_data.py::test_kolmogorov_smirnov PASSED

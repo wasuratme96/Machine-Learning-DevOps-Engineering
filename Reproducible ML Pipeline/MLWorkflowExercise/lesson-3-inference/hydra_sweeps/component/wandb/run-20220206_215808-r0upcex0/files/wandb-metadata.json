@@ -1,0 +1,27 @@
+{
+    "os": "macOS-12.1-x86_64-i386-64bit",
+    "python": "3.9.10",
+    "heartbeatAt": "2022-02-06T14:58:09.993419",
+    "startedAt": "2022-02-06T14:58:08.827532",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--a",
+        "4",
+        "--b",
+        "2"
+    ],
+    "state": "running",
+    "program": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline/MLWorkflowExercise/lesson-3-inference/hydra_sweeps/component/noop.py",
+    "codePath": "Reproducible ML Pipeline/MLWorkflowExercise/lesson-3-inference/hydra_sweeps/component/noop.py",
+    "git": {
+        "remote": "https://github.com/wasuratme96/Machine-Learning-DevOps-Engineering.git",
+        "commit": "9686cc8aa761442d373e5f7f226d5d7f6fc9fa1b"
+    },
+    "email": "wasurat_me96@outlook.com",
+    "root": "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering",
+    "host": "Wasurats-MacBook-Pro.local",
+    "username": "wasuratsoontronchai",
+    "executable": "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-33ea69a16ba50ff512af0bbeac5b8c5f76dd2af0/bin/python"
+}
