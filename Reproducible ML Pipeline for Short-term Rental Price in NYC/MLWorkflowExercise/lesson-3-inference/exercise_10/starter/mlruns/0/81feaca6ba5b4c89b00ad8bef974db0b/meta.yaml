@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible%20ML%20Pipeline%20for%20Short-term%20Rental%20Price%20in%20NYC/Building%20ML%20Workflow%20Exercise/lesson-3-inference/exercise_10/starter/mlruns/0/81feaca6ba5b4c89b00ad8bef974db0b/artifacts
+end_time: 1644139424062
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 81feaca6ba5b4c89b00ad8bef974db0b
+run_uuid: 81feaca6ba5b4c89b00ad8bef974db0b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1644139351449
+status: 4
+tags: []
+user_id: wasuratsoontronchai

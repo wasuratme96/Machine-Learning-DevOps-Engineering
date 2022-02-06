@@ -1,0 +1,58 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.8.12, pytest-6.2.2, py-1.11.0, pluggy-0.13.1 -- /Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-c86639da1eecf5a556ffdc9bec299b5662e80681/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline for Short-term Rental Price in NYC/Building ML Workflow Exercise/lesson-2-data-validation-pipeline/exercise_9/starter
+collecting ... collected 1 item
+
+test_data.py::test_kolmogorov_smirnov FAILED
+
+=================================== FAILURES ===================================
+___________________________ test_kolmogorov_smirnov ____________________________
+
+data = (       Unnamed: 0  ...                                       text_feature
+0           27919  ...                     ...ll on to Forrest Trance 
+12592       34043  ...                            Lost Lands 2019 
+
+[12593 rows x 20 columns])
+ks_alpha = 0.9
+
+    def test_kolmogorov_smirnov(data, ks_alpha):
+    
+        sample1, sample2 = data
+    
+        columns = [
+            "danceability",
+            "energy",
+            "loudness",
+            "speechiness",
+            "acousticness",
+            "instrumentalness",
+            "liveness",
+            "valence",
+            "tempo",
+            "duration_ms"
+        ]
+    
+        alpha_prime = 1 - (1 - ks_alpha)**(1 / len(columns))
+    
+        for col in columns:
+    
+            ts, p_value = scipy.stats.ks_2samp(sample1[col], sample2[col])
+    
+            # NOTE: as always, the p-value should be interpreted as the probability of
+            # obtaining a test statistic (TS) equal or more extreme that the one we got
+            # by chance, when the null hypothesis is true. If this probability is not
+            # large enough, this dataset should be looked at carefully, hence we fail
+>           assert p_value > alpha_prime
+E           assert 0.1910608811990394 > 0.2056717652757185
+
+test_data.py:31: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../../opt/anaconda3/envs/mlflow-c86639da1eecf5a556ffdc9bec299b5662e80681/lib/python3.8/site-packages/wandb/vendor/watchdog/utils/bricks.py:175
+  /Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-c86639da1eecf5a556ffdc9bec299b5662e80681/lib/python3.8/site-packages/wandb/vendor/watchdog/utils/bricks.py:175: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+    class OrderedSet(collections.MutableSet):
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+=========================== short test summary info ============================
+FAILED test_data.py::test_kolmogorov_smirnov - assert 0.1910608811990394 > 0....
+========================= 1 failed, 1 warning in 4.80s =========================
