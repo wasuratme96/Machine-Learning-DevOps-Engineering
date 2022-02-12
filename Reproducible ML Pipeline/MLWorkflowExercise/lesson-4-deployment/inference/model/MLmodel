@@ -1,0 +1,24 @@
+flavors:
+  python_function:
+    env: conda.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    python_version: 3.8.12
+  sklearn:
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 0.24.1
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  type: dataframe
+signature:
+  inputs: '[{"name": "acousticness", "type": "double"}, {"name": "danceability", "type":
+    "double"}, {"name": "duration_ms", "type": "long"}, {"name": "energy", "type":
+    "double"}, {"name": "instrumentalness", "type": "double"}, {"name": "liveness",
+    "type": "double"}, {"name": "loudness", "type": "double"}, {"name": "speechiness",
+    "type": "double"}, {"name": "tempo", "type": "double"}, {"name": "valence", "type":
+    "double"}, {"name": "key", "type": "long"}, {"name": "time_signature", "type":
+    "long"}, {"name": "text_feature", "type": "string"}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "object", "shape": [-1]}}]'
+utc_time_created: '2022-02-12 09:44:06.877416'
