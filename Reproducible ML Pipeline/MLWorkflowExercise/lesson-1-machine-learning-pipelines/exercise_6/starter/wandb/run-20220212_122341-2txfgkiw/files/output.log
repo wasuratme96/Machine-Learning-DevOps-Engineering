@@ -1,0 +1,13 @@
+2022-02-12 12:23:47,440 Downloading and reading artifact
+Traceback (most recent call last):
+  File "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline/MLWorkflowExercise/lesson-1-machine-learning-pipelines/exercise_6/starter/run.py", line 122, in <module>
+    go(args)
+  File "/Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible ML Pipeline/MLWorkflowExercise/lesson-1-machine-learning-pipelines/exercise_6/starter/run.py", line 22, in go
+    artifact_path = artifact.file()
+  File "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-b536c99cab3f07bfeb0a1ad9e153575c07cd087e/lib/python3.9/site-packages/wandb/apis/public.py", line 2981, in file
+    manifest = self._load_manifest()
+  File "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-b536c99cab3f07bfeb0a1ad9e153575c07cd087e/lib/python3.9/site-packages/wandb/apis/public.py", line 3144, in _load_manifest
+    req.raise_for_status()
+  File "/Users/wasuratsoontronchai/opt/anaconda3/envs/mlflow-b536c99cab3f07bfeb0a1ad9e153575c07cd087e/lib/python3.9/site-packages/requests/models.py", line 960, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://storage.googleapis.com/wandb-production.appspot.com/wasuratfirst/exercise_5/29l15kmm/artifact/74642102/wandb_manifest.json?Expires=1644643488&GoogleAccessId=wandb-production%40appspot.gserviceaccount.com&Signature=iAETMOe2qqkPBXsrh8ONzrOsDOJqYzvZMYUBWEP1nQ27phgtOttgtWtldKLMK%2FexF4moDgrviIDf7fa6g9ZAIuLq8N2%2BWut%2B3RWaBMa39wRHXTR8MNoJuGvs4fEVIzzPBoDNGkfs4dy9%2F3k01khDYQbBsB%2F5VxUb2PbU96KtA63PyOMtDSYq6iCmroLJf32v1%2FF0bWPXOCI8FFIW%2BC4DArGgesyVLSay3UD1fBffBDKtRFpQ0Lrnn4ZCoByAAgbRrtQu4IYNcrJJJNkqxYIMakaBvkX6kbkZo%2FZ2atFUyvCT68jX6870KbVrRS36CQX4q3RVY%2BOczgyv0a%2BF59yOQw%3D%3D
