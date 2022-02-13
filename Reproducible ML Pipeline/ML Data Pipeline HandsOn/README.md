@@ -248,6 +248,7 @@ Example ```config["main"]["project_name"]``` will calling the default value "ml_
 or ```config["main"]["execute_steps"]``` will get all naming of steps in running **(download, preprocess, check_data, segregate)**
 
 Next is how each step in pipeline is workng together. <br/>
+You could see that to pass variables from hydra config file, this can do by using ```config["data"][xxx]```  and all parameters require as input will be insert in ```parameters``` arguments.
 
 ``` python
 if "download" in steps_to_execute:
@@ -297,3 +298,4 @@ if "segregate" in steps_to_execute:
             }
 )
 ```
+
