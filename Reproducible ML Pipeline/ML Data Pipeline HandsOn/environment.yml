@@ -1,0 +1,12 @@
+name: wandb_datapipeline
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - mlflow=1.23
+  - hydra-core=1.1
+  - pandas=1.2.3 
+  - pip=22.0
+  - pip:
+      - wandb==0.12.10
