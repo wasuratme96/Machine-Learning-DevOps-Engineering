@@ -331,14 +331,63 @@ Input variables will comfrom main.py script whichare as below. <br/>
         )
 ```
 ### download_data.py
+In this script, we read data from source and create artifact class via weight and bias API. <br/>
+And use all arugments inputs as ```artifact name```, ```artifact type``` and ```description``` to upload into weight and bias platform <br/>
 
+``` python
+with wandb.init(job_type="download_data") as run:
+    # Download the file streaming and write to open temp file
+    with requests.get(args.file_url, stream=True) as r:
+        for chunk in r.iter_content(chunk_size=8192):
+            fp.write(chunk)
+    
+    artifact = wandb.Artifact(
+        name=args.artifact_name,
+        type=args.artifact_type,
+        description=args.artifact_description,
+        metadata={'original_url': args.file_url}
+    )
+    artifact.add_file(fp.name, name=basename)
+    
+    run.log_artifact(artifact)
+    artifact.wait()
+```
 
+To interface with weight and bias platform, ```wand.init(...)``` need to start as run context. <br/>
+Then use ``run.log_artifact(...)``` to log artifact object we have created.
+```python
+with wandb.init(job_type="download_data") as run:
+```
 ## Running Pipeline
 Use below script to run on your CLI in directory where all file have been store according to file structure. <br/>
+With this script will use all defaul setting in ```config.yaml``` we have create
 ``` CLI
 > mlflow run .
 ```
-This will use all defaul setting in ```config.yaml``` we have create
 
-## Reference and Resource
-[Machine Learning DevOps Engineer](https://github.com/udacity/nd0821-c2-build-model-workflow-exercises)
+During running you could see logging result from our script like this.
+**preprocessed_data**
+![Mlflow run](./Asset/cli_result_example.png) <br/>
+The first box is commands section in each MLproject file have create for each component.
+And second red box is logging from python script run.
+
+Now let check our runs result in weight and bias.
+You can check my example of run-result with this [link](https://wandb.ai/wasuratfirst/projects)<br/>
+Here is the result of running and summary table.
+![WandB Table Result](./Asset/wandb_run_table.png) <br/>
+
+All artifact also can be check on the left side bar menu as below picture.
+![WandB artifact](./Asset/wandb_artifact_uploaded.png) <br/>
+
+Graph view for all steps and artifact creation can be access by cliking on artifact file and click ```Graph View```
+![WandB artifact](./Asset/wandb_graphview.png) <br/>
+
+That is !! 👏🏻🎊🎉<br/>
+You could deep dive into each component code and also add whatever you want to do as data pipline. <br/>
+Hope this guide would help you get some idea on how we can working on data pipeline in machine learning project.
+
+
+# Reference and Resource
+[ML DevOps Engineer-Udacity](https://github.com/udacity/nd0821-c2-build-model-workflow-exercises)<br/>
+[MLflow](https://mlflow.org/)<br/>
+[Weight and Bias](https://docs.wandb.ai/)
