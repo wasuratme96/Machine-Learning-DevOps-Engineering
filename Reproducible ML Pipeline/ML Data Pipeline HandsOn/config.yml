@@ -1,0 +1,22 @@
+main:
+  project_name: ml_data_pipeline
+  experiment_name: dev
+  execute_steps:
+    - download
+    - preprocess
+    - check_data
+    - segregate
+  # This seed will be used to seed the random number generator
+  # to ensure repeatibility of the data splits and other
+  # pseudo-random operations
+  random_seed: 112233
+data:
+  file_url: "https://github.com/udacity/nd0821-c2-build-model-workflow-exercises/blob/master/lesson-2-data-exploration-and-preparation/exercises/exercise_4/starter/genres_mod.parquet?raw=true"
+  reference_dataset: "ml_data_pipeline/preprocessed_data.csv:latest"
+  # Threshold for Kolomorov-Smirnov test
+  ks_alpha: 0.05
+  test_size: 0.3
+  val_size: 0.3
+  # Stratify according to the target when splitting the data
+  # in train/test or in train/val
+  stratify: genre

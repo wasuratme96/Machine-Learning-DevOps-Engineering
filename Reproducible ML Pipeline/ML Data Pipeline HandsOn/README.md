@@ -10,7 +10,7 @@ Step-by-Step simple re-usable data pipeline creation with MLflow and Weight and 
 ## Contents
 - [Environment Setup](#set-up)
 - [Data](#data)
-- [Purpose of Pipeline](#purpose-of-pipeline)
+- [Action in Pipeline](#action_in_pipeline)
 - [File Structure](#file-structure)
 - [Main](#main)
   * [ML Project File](#ml-project-file)
@@ -65,39 +65,62 @@ wand longin [API key]
 
 On this tutorial, we will use weight and bias to store processed data and track all the script run.
 
-## Data
+## Data 🎤🎹
 In this tutorials we use songs dataset from [Kaggle](https://www.kaggle.com/mrmorj/dataset-of-songs-in-spotify). Data set is collected by Spotify API.<br/>
 
 
 This data contains sound chraracteristics (ex. danceability, loundness, valence) from on song with its genre. All of them are numerical value.
 
-End goal is to classify song genre with sound characteristics data. (Multi-Class Classification)
+End goal is to classify song genre with sound characteristics data. (Multi-Class Classification) <br/>
 
-## Purpose of Pipeline
+## Action in Pipeline 
 
-
-### **Steps in Pipeline**
 **dowload**
-> 1.) Download raw data from github url <br/>
-> 2.) Upload raw data as artifact into Weight and Bias <br/>
+> Input : File URL location (In this case my github folder) <br/>
+>
+> Action :
+> - 1.) Download raw data from target location<br/>
+> - 2.) Upload raw data as artifact into Weight and Bias <br/>
+>
+> Output : raw_data.csv (artifact in WandB)
 
 **preprocess**
-> 1.) Upload raw data as artifact into Weight and Bias <br/>
-> 2.) Upload raw data as artifact into Weight and Bias <br/>
+> Input : raw_data.csv (artifact from WandB)
+>
+> Action :
+> - 1.) Drop duplications in data <br/>
+> - 2.) Perform simple feature engineering <br/>
+> - 3.) Upload processed data to Weight and Bias <br/>
+>
+> Output : preprocessed_data.csv (artifact in WandB)
 
 **checkdata**
-> 1.) Upload raw data as artifact into Weight and Bias <br/>
-> 2.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
+> Input : 
+> - preprocessed_data.csv (artifact from WandB)
+> - reference_data (In this case, another half of data)
+>
+> Action :
+> - 1.) Use PyTest perform test via PyTest fixture<br/>
+> - 2.) Test columns presence and data type<br/>
+> - 3.) Test genre class presence <br/>
+> - 4.) Perform KS-Test to detect dift <br/>
+> - 5.) Sent all test log to Weight and Bias <br/>
+>
+> Output : pytest_testing.logs (artifact in WandB)
 
 **segregate**
-> 1.) Upload raw data as artifact into Weight and Bias <br/>
-> 2.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 4.) Upload raw data as artifact into Weight and Bias <br/>
+> Input : preprocessed_data.csv (artifact from WandB)
+>
+> Action :
+> - 1.) Download data from Weight and Bias <br/>
+> - 2.) Split data for train and test from given test_size, and stratify column <br/>
+> - 3.) Upload train/ test data as artifact into Weight and Bias <br/>
+>
+> Output :
+> - train_data.csv
+> - test_data.csv 
 
-
-## File Structure
+## File Structure 🗂
     └── ML_Data_Pipeline
         ├── config.yml      # Hydra config file
         ├── conda.yml             
@@ -120,4 +143,34 @@ End goal is to classify song genre with sound characteristics data. (Multi-Class
             ├── conda.yml            
             ├── MLproject
             └── main.py
- 
+According to file structure have shown, in every running components even on main script (outermost main.py) we need 2 YAML files together ```MLproject``` and ```conda.yml``` with python script ```main.py``` that contains all action we want for each pipeline component. <br/>
+
+### **conda.yml**
+This YAML file will use tell the MLflow known what is our required library to make ```main.py``` script runnable. <br/>
+2 Main section here are
+- ```channels```: location where conda will go to look for ```dependencies``` declared variables.
+- ```dependencies```: All dependencies library require to make main.py runnable 
+
+Note that some of might not available in declared channel like [conda-forge](https://anaconda.org/conda-forge) and [defaults](https://repo.anaconda.com/pkgs/), in this case ```pip``` is required in depedencies and you must declare all pip install library under it.
+
+``` YAML
+name: initial_mlflow_run
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - requests=2.24.0
+  - pip=20.3.3
+  - mlflow=1.14.1
+  - hydra-core=1.0.6
+  - pip:
+      - wandb==0.10.21
+      - hydra-joblib-launcher==1.1.2
+```
+**MLproject**
+This file is 
+``` YAML
+
+```
+For ```config.yml```, this file will be use for hydra library to store and overwrite variables during script running.
