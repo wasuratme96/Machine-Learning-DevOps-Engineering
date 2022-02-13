@@ -1,7 +1,7 @@
 # (Hands-On) Machine Learning Data Pipeline
 
 ## Overview
-![Project Overview](./Asset/ProjectOverview.png) <br/>
+![Project Overview](./Asset/ml_Data_pipe_overview.png) <br/>
 This project will bring you go throuhgt on first element of Machine Learning in MLOps which is ```Data Pipeline``` <br/>
 In every machine learning project, data pipeline is mandatory to make our incoming data ready to use(train-test split), validate data profile and finding some insight from new data. <br/>
 Step-by-Step simple re-usable data pipeline creation with MLflow and Weight and Bias plarform will be introduced here.
@@ -9,6 +9,7 @@ Step-by-Step simple re-usable data pipeline creation with MLflow and Weight and 
 
 ## Contents
 - [Environment Setup](#set-up)
+- [Data](#data)
 - [Purpose of Pipeline](#purpose-of-pipeline)
 - [File Structure](#file-structure)
 - [Main](#main)
@@ -51,37 +52,49 @@ In this tutorials we will use [MLflow Projects](https://www.mlflow.org/docs/late
 **[Hydra](https://github.com/facebookresearch/hydra)** <br/>
 Hydra is frame for hierarchical configuration creation. This library enable you to store complex config variables and override it via config file and command line.
 
-We will store all configurable variables in ```config.yml``` 
+We will store all configurable variables in ```config.yml``` and use all variable via arguments parser when MLflow call the pipeline.
 
 **[Weight and Bias](https://wandb.ai/home)** <br/>
 Weight and Bias is machine learning platform that come with many features including **tracking**, **versioning data and model**, **data visualization**, **reporting** and **hyperparameters sweeper**. <br/>
 ![weightandbias_overview](./Asset/weightandbias_overview.gif) <br/>
-After you install weight and bias on your conda environment from previous step and completed account creation on [website](https://wandb.ai) <br/>
+After you install weight and bias on your conda environment from previous step and completed account creation on [website.](https://wandb.ai) <br/>
 To get API key for authentication on communication from your local machine to weight and bias service, please use this link [https://wandb.ai/authorize](https://wandb.ai/authorize) and use below command in CLI
 ``` %python
 wand longin [API key]
 ```
 
-On this tutorial, we will use WandB to store our processed data and track all the script run.
+On this tutorial, we will use weight and bias to store processed data and track all the script run.
 
 ## Data
-In this tutorials we use songs dataset from [Kaggle](https://www.kaggle.com/mrmorj/dataset-of-songs-in-spotify) and make some modification (drop columns and split data)
+In this tutorials we use songs dataset from [Kaggle](https://www.kaggle.com/mrmorj/dataset-of-songs-in-spotify). Data set is collected by Spotify API.<br/>
+
+
+This data contains sound chraracteristics (ex. danceability, loundness, valence) from on song with its genre. All of them are numerical value.
+
+End goal is to classify song genre with sound characteristics data. (Multi-Class Classification)
 
 ## Purpose of Pipeline
 
 
 ### **Steps in Pipeline**
+**dowload**
 > 1.) Download raw data from github url <br/>
 > 2.) Upload raw data as artifact into Weight and Bias <br/>
+
+**preprocess**
+> 1.) Upload raw data as artifact into Weight and Bias <br/>
+> 2.) Upload raw data as artifact into Weight and Bias <br/>
+
+**checkdata**
+> 1.) Upload raw data as artifact into Weight and Bias <br/>
+> 2.) Upload raw data as artifact into Weight and Bias <br/>
 > 3.) Upload raw data as artifact into Weight and Bias <br/>
+
+**segregate**
+> 1.) Upload raw data as artifact into Weight and Bias <br/>
+> 2.) Upload raw data as artifact into Weight and Bias <br/>
 > 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
-> 3.) Upload raw data as artifact into Weight and Bias <br/>
+> 4.) Upload raw data as artifact into Weight and Bias <br/>
 
 
 ## File Structure
