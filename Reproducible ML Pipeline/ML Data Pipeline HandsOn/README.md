@@ -19,7 +19,9 @@ Step-by-Step simple re-usable data pipeline creation with MLflow and Weight and 
   * [main.py](#main.py)
 - [Download Component](#download_component)
   * [MLproject File](#ml-project-file)
-  * [main.py](#main.py)
+  * [download_data.py](#download_data.py)
+- [Running Pipeline](#running_pipeline)
+- [Weight and Bias](#weight_and_bias)
   
 ## Environment Setup
 Before your start to follow along this tutorial, what you have to install are  **Conda**, **MLFlow** and **Hydra** and **WeightAndBias**
@@ -304,32 +306,39 @@ if "segregate" in steps_to_execute:
 This is the first component in our pipeline. To download a data set fron given url and push it as artifact on weight and bias.
 
 ### MLproject file
-In this component on MLproject will sligthly differences,
-
-``` YAML
-name: download_data
-conda_env: conda.yml
-
-entry_points:
-  main:
-    parameters:
-      file_url:
-        description: URL of the file to download
-        type: uri
-      artifact_name:
-        description: Name for the W&B artifact that will be created
-        type: str
-      artifact_type:
-        description: Type of the artifact to create
-        type: str
-        default: raw_data
-      artifact_description:
-        description: Description for the artifact
-        type: str
-
-    command: >-
-      python download_data.py --file_url {file_url} \
+In this component on MLproject will sligthly differences. <br/>
+On commands sections, it takes 4 arguments as below.
+```CLI
+python download_data.py --file_url {file_url} \
                               --artifact_name {artifact_name} \
                               --artifact_type {artifact_type} \
                               --artifact_description {artifact_description}
 ```
+Input variables will comfrom main.py script whichare as below. <br/>
+```config["data"]["file_url"]``` is stored URL directory where file is saved <br/>
+```artifact_name``` and ```artifact_type``` will be use to upload artifact into weight and bias platform.
+``` python
+    if "download" in steps_to_execute:
+        _ = mlflow.run(
+            os.path.join(root_path, "download"),
+            "main",
+            parameters={
+                "file_url": config["data"]["file_url"],
+                "artifact_name": "raw_data.parquet",
+                "artifact_type": "raw_data",
+                "artifact_description": "Data as downloaded"
+            },
+        )
+```
+### download_data.py
+
+
+## Running Pipeline
+Use below script to run on your CLI in directory where all file have been store according to file structure. <br/>
+``` CLI
+> mlflow run .
+```
+This will use all defaul setting in ```config.yaml``` we have create
+
+## Reference and Resource
+[Machine Learning DevOps Engineer](https://github.com/udacity/nd0821-c2-build-model-workflow-exercises)
