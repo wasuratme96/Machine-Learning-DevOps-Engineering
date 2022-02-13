@@ -4,7 +4,7 @@ main:
   execute_steps:
     - download
     - preprocess
-    - check_data
+    - checkdata
     - segregate
   # This seed will be used to seed the random number generator
   # to ensure repeatibility of the data splits and other

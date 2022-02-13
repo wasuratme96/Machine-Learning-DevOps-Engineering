@@ -137,6 +137,7 @@ End goal is to classify song genre with sound characteristics data. (Multi-Class
             └── main.py
 
 After this section, details explanation on how each file is being used and imortance of its will be done only in ```main``` script and ```download``` step for the shorten reading and writting time.
+
 ## Main Script
 According to file structure have shown, in every running components even on main script (outermost main.py) we need 2 YAML files together ```MLproject``` and ```conda.yml``` with python script (```main.py```) that contains all action we want for each pipeline component. <br/>
 
@@ -297,5 +298,38 @@ if "segregate" in steps_to_execute:
                 "stratify" : config["data"]["stratify"]
             }
 )
-```
+``` 
 
+## Download Component
+This is the first component in our pipeline. To download a data set fron given url and push it as artifact on weight and bias.
+
+### MLproject file
+In this component on MLproject will sligthly differences,
+
+``` YAML
+name: download_data
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+      file_url:
+        description: URL of the file to download
+        type: uri
+      artifact_name:
+        description: Name for the W&B artifact that will be created
+        type: str
+      artifact_type:
+        description: Type of the artifact to create
+        type: str
+        default: raw_data
+      artifact_description:
+        description: Description for the artifact
+        type: str
+
+    command: >-
+      python download_data.py --file_url {file_url} \
+                              --artifact_name {artifact_name} \
+                              --artifact_type {artifact_type} \
+                              --artifact_description {artifact_description}
+```

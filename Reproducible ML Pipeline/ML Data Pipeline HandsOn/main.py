@@ -49,9 +49,9 @@ def go(config: DictConfig):
         )
 
     # Check data step
-    if "check_data" in steps_to_execute:
+    if "checkdata" in steps_to_execute:
         _ = mlflow.run(
-            os.path.join(root_path, "check_data"),
+            os.path.join(root_path, "checkdata"),
             "main",
             parameters = {
                 "reference_artifact" : config["data"]["reference_dataset"],
