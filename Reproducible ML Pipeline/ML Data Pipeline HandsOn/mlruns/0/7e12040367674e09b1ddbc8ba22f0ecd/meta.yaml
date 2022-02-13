@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/wasuratsoontronchai/Documents/GitHub/Machine-Learning-DevOps-Engineering/Reproducible%20ML%20Pipeline/ML%20Data%20Pipeline%20HandsOn/mlruns/0/7e12040367674e09b1ddbc8ba22f0ecd/artifacts
+end_time: 1644776158768
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 7e12040367674e09b1ddbc8ba22f0ecd
+run_uuid: 7e12040367674e09b1ddbc8ba22f0ecd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1644776131977
+status: 4
+tags: []
+user_id: wasuratsoontronchai

@@ -1,0 +1,16 @@
+main:
+  project_name: ml_data_pipeline
+  experiment_name: dev
+  execute_steps:
+  - download
+  - preprocess
+  - check_data
+  - segregate
+  random_seed: 112233
+data:
+  file_url: https://github.com/wasuratme96/Machine-Learning-DevOps-Engineering/blob/main/Reproducible%20ML%20Pipeline/ML%20Data%20Pipeline%20HandsOn/data/genres_data_mod1.parquet?raw=true
+  reference_dataset: ml_data_pipeline/preprocessed_data.csv:latest
+  ks_alpha: 0.05
+  test_size: 0.3
+  val_size: 0.3
+  stratify: genre
