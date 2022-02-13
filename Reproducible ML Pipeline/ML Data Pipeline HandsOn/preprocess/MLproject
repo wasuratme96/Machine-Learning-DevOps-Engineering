@@ -4,9 +4,9 @@ conda_env: conda.yml
 entry_points:
   main:
     parameters:
-      file_url:
-        description: URL of the file to download
-        type: uri
+      input_artifact:
+        description: Fully qualified name for the artifact
+        type: str
       artifact_name:
         description: Name for the W&B artifact that will be created
         type: str
@@ -19,7 +19,7 @@ entry_points:
         type: str
 
     command: >-
-      python download_data.py --file_url {file_url} \
+      python run.py --input_artifact {input_artifact} \
                               --artifact_name {artifact_name} \
                               --artifact_type {artifact_type} \
                               --artifact_description {artifact_description}
