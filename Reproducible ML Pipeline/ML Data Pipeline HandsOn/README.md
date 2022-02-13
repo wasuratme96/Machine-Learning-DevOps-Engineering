@@ -1,7 +1,7 @@
 # (Hands-On) Machine Learning Data Pipeline
 
 ## Overview
-![Project Overview](./Asset/ml_Data_pipe_overview.png) <br/>
+![Project Overview](./Asset/ml_data_pipe_overview.png) <br/>
 This project will bring you go throuhgt on first element of Machine Learning in MLOps which is ```Data Pipeline``` <br/>
 In every machine learning project, data pipeline is mandatory to make our incoming data ready to use(train-test split), validate data profile and finding some insight from new data. <br/>
 Step-by-Step simple re-usable data pipeline creation with MLflow and Weight and Bias plarform will be introduced here.
@@ -12,7 +12,7 @@ Step-by-Step simple re-usable data pipeline creation with MLflow and Weight and 
 - [Data](#data)
 - [Action in Pipeline](#action_in_pipeline)
 - [File Structure](#file-structure)
-- [Main](#main)
+- [Main Script](#main_script)
   * [ML Project File](#ml-project-file)
   * [Hydra Config File](#hydra-config-file)
   * [Conda File](#hydra-config-file)
@@ -143,6 +143,8 @@ End goal is to classify song genre with sound characteristics data. (Multi-Class
             ├── conda.yml            
             ├── MLproject
             └── main.py
+
+## Main Script
 According to file structure have shown, in every running components even on main script (outermost main.py) we need 2 YAML files together ```MLproject``` and ```conda.yml``` with python script ```main.py``` that contains all action we want for each pipeline component. <br/>
 
 ### **conda.yml**
@@ -168,9 +170,24 @@ dependencies:
       - wandb==0.10.21
       - hydra-joblib-launcher==1.1.2
 ```
-**MLproject**
-This file is 
+### **MLproject**
+This file use to organize how to run our script in humand readable way.
+Commands that can be run within the project, and information about their parameters. Most projects contain at least one entry point that you want other users to call. Some projects can also contain more than one entry point: for example, you might have a single Git repository containing multiple featurization algorithms. You can also call any .py or .sh file in the project as an entry point. If you list your entry points in a MLproject file, however, you can also specify parameters for them, including data types and default values.
+
 ``` YAML
+name: initial_mlflow_run
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+      hydra_options:
+        description: Hydra parameters to override
+        type: str
+        default: ''
+    command: >-
+      python main.py $(echo {hydra_options})
 
 ```
+
 For ```config.yml```, this file will be use for hydra library to store and overwrite variables during script running.
