@@ -1,0 +1,40 @@
+name: basic_cleaning
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+
+      input_artifact:
+        description: Name of input artifact accordining to previous component
+        type: string
+
+      output_artifact:
+        description: Name of output artifact to be saved on W&B
+        type: string
+
+      output_type:
+        description: Data type of output artifact to be stored on W&B
+        type: string
+        default : cleaned_data
+
+      output_description:
+        description: Description for artifact
+        type: string
+
+      min_price:
+        description: Minimum price to consider
+        type: float
+
+      max_price:
+        description: Maximum price to consider
+        type: float
+
+
+    command: >-
+        python run.py  --input_artifact {input_artifact}\
+                       --output_artifact {output_artifact}\
+                       --output_type {output_type}\
+                       --output_description {output_description}\
+                       --min_price {min_price}\
+                       --max_price {max_price} 
