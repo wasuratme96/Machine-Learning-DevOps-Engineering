@@ -1,0 +1,17 @@
+stages:
+  prepare:
+    cmd: python ./prepare.py
+    deps:
+    - fake_data.csv
+    - prepare.py
+    outs:
+    - X.csv
+    - y.csv
+  train:
+    cmd: python ./train.py
+    deps:
+    - X.csv
+    - train.py
+    - y.csv
+    params:
+    - C

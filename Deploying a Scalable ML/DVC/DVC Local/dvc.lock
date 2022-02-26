@@ -1,0 +1,33 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python ./prepare.py
+    deps:
+    - path: fake_data.csv
+      md5: a79cef58067bb0f45b28be97840b77f9
+      size: 92
+    - path: prepare.py
+      md5: b42d33f786c13fa61ae607868f30453f
+      size: 295
+    outs:
+    - path: X.csv
+      md5: 7d590865f797d0e66307c84bcbeb5f20
+      size: 475
+    - path: y.csv
+      md5: 8870354405a58d988cee938d17b8b147
+      size: 475
+  train:
+    cmd: python ./train.py
+    deps:
+    - path: X.csv
+      md5: 7d590865f797d0e66307c84bcbeb5f20
+      size: 475
+    - path: train.py
+      md5: 1a5acaf48602fed63844ed3f93966325
+      size: 636
+    - path: y.csv
+      md5: 8870354405a58d988cee938d17b8b147
+      size: 475
+    params:
+      params.yaml:
+        C: 1.0
